@@ -1,4 +1,4 @@
-package com.vthwang.springboot.spring_cool_app;
+package com.vthwang.springboot.spring_cool_app.common;
 
 import org.springframework.stereotype.Component;
 
