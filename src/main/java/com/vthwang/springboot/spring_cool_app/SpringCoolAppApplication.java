@@ -28,7 +28,9 @@ public class SpringCoolAppApplication {
 
 			// queryStudents(studentDAO);
 
-			queryStudentsByLastName(studentDAO);
+			// queryStudentsByLastName(studentDAO);
+
+			updateStudent(studentDAO);
 		};
 	}
 
@@ -72,10 +74,20 @@ public class SpringCoolAppApplication {
 	// 	}
 	// }
 
-	private void queryStudentsByLastName(StudentDAO studentDAO) {
-		List<Student> theStudents = studentDAO.findByLastName("Doe");
-		for (Student tempStudent : theStudents) {
-			System.out.println(tempStudent);
-		}
+	// private void queryStudentsByLastName(StudentDAO studentDAO) {
+	// 	List<Student> theStudents = studentDAO.findByLastName("Doe");
+	// 	for (Student tempStudent : theStudents) {
+	// 		System.out.println(tempStudent);
+	// 	}
+	// }
+
+	private void updateStudent(StudentDAO studentDAO) {
+		int studentId = 1;
+		System.out.println("Getting student with id: " + studentId);
+		Student myStudent = studentDAO.findById(studentId);
+		System.out.println("Updating student...");
+		myStudent.setFirstName("Scooby");
+		studentDAO.update(myStudent);
+		System.out.println("Updated student: " + myStudent);
 	}
 }
