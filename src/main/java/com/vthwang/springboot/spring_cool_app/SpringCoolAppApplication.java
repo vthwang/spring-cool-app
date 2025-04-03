@@ -26,7 +26,9 @@ public class SpringCoolAppApplication {
 
 			// readStudent(studentDAO);
 
-			queryStudents(studentDAO);
+			// queryStudents(studentDAO);
+
+			queryStudentsByLastName(studentDAO);
 		};
 	}
 
@@ -63,8 +65,15 @@ public class SpringCoolAppApplication {
 	// System.out.println("Found the student: " + myStudent);
 	// }
 
-	private void queryStudents(StudentDAO studentDAO) {
-		List<Student> theStudents = studentDAO.findAll();
+	// private void queryStudents(StudentDAO studentDAO) {
+	// 	List<Student> theStudents = studentDAO.findAll();
+	// 	for (Student tempStudent : theStudents) {
+	// 		System.out.println(tempStudent);
+	// 	}
+	// }
+
+	private void queryStudentsByLastName(StudentDAO studentDAO) {
+		List<Student> theStudents = studentDAO.findByLastName("Doe");
 		for (Student tempStudent : theStudents) {
 			System.out.println(tempStudent);
 		}
