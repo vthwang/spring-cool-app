@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.vthwang.springboot.spring_cool_app.entity.Student;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 @Repository
@@ -27,12 +28,14 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    public List<Student> findAll() {
-        return entityManager.createQuery("from Student", Student.class).getResultList();
+    public Student findById(Integer id) {
+        return entityManager.find(Student.class, id);
     }
 
     @Override
-    public Student findById(Integer id) {
-        return entityManager.find(Student.class, id);
+    public List<Student> findAll() {
+        TypedQuery<Student> theQuery = entityManager.createQuery("from Student order by lastName", Student.class);
+
+        return theQuery.getResultList();
     }
 }
