@@ -30,7 +30,11 @@ public class SpringCoolAppApplication {
 
 			// queryStudentsByLastName(studentDAO);
 
-			updateStudent(studentDAO);
+			// updateStudent(studentDAO);
+
+			// deleteStudent(studentDAO);
+
+			deleteAllStudents(studentDAO);
 		};
 	}
 
@@ -81,13 +85,25 @@ public class SpringCoolAppApplication {
 	// 	}
 	// }
 
-	private void updateStudent(StudentDAO studentDAO) {
-		int studentId = 1;
-		System.out.println("Getting student with id: " + studentId);
-		Student myStudent = studentDAO.findById(studentId);
-		System.out.println("Updating student...");
-		myStudent.setFirstName("Scooby");
-		studentDAO.update(myStudent);
-		System.out.println("Updated student: " + myStudent);
+	// private void updateStudent(StudentDAO studentDAO) {
+	// 	int studentId = 1;
+	// 	System.out.println("Getting student with id: " + studentId);
+	// 	Student myStudent = studentDAO.findById(studentId);
+	// 	System.out.println("Updating student...");
+	// 	myStudent.setFirstName("Scooby");
+	// 	studentDAO.update(myStudent);
+	// 	System.out.println("Updated student: " + myStudent);
+	// }
+
+	// private void deleteStudent(StudentDAO studentDAO) {
+	// 	int studentId = 1;
+	// 	System.out.println("Deleting student with id: " + studentId);
+	// 	studentDAO.delete(studentId);
+	// }
+
+	private void deleteAllStudents(StudentDAO studentDAO) {
+		System.out.println("Deleting all students");
+		int numRowsDeleted = studentDAO.deleteAll();
+		System.out.println("Number of rows deleted: " + numRowsDeleted);
 	}
 }
