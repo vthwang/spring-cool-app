@@ -7,4 +7,5 @@ import com.vthwang.springboot.spring_cool_app.entity.Student;
 public interface StudentDAO {
     void save(Student student);
     List<Student> findAll();
+    Student findById(Integer id);
 }
