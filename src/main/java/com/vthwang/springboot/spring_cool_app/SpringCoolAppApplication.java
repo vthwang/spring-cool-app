@@ -18,14 +18,29 @@ public class SpringCoolAppApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
 		return runner -> {
-			createStudent(studentDAO);
+			// createStudent(studentDAO);
+
+			createMultipleStudents(studentDAO);
 		};
 	}
 
-	private void createStudent(StudentDAO studentDAO) {
-		System.out.println("Creating student object...");
-		Student tempStudent = new Student("John", "Doe", "john.doe@gmail.com");
-		studentDAO.save(tempStudent);
-		System.out.println("Saved student. Generated id: " + tempStudent.getId());
+	// private void createStudent(StudentDAO studentDAO) {
+	// 	System.out.println("Creating student object...");
+	// 	Student tempStudent = new Student("John", "Doe", "john.doe@gmail.com");
+	// 	studentDAO.save(tempStudent);
+	// 	System.out.println("Saved student. Generated id: " + tempStudent.getId());
+	// }
+
+	private void createMultipleStudents(StudentDAO studentDAO) {
+		System.out.println("Creating 3 student objects...");
+		Student tempStudent1 = new Student("John", "Doe", "john.doe@gmail.com");
+		Student tempStudent2 = new Student("Mary", "Public", "mary.public@gmail.com");
+		Student tempStudent3 = new Student("Bonita", "Applebum", "bonita.applebum@gmail.com");
+
+		studentDAO.save(tempStudent1);
+		studentDAO.save(tempStudent2);
+		studentDAO.save(tempStudent3);
+
+		System.out.println("Saved students. Generated id: " + tempStudent1.getId());
 	}
 }
