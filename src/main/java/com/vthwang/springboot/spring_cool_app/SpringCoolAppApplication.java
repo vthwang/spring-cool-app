@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.boot.CommandLineRunner;
 import com.vthwang.springboot.spring_cool_app.dao.AppDAO;
 import com.vthwang.springboot.spring_cool_app.entity.Instructor;
-import com.vthwang.springboot.spring_cool_app.entity.InstructorDetail;
 
 @SpringBootApplication
 public class SpringCoolAppApplication {
@@ -18,7 +17,9 @@ public class SpringCoolAppApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(AppDAO appDAO) {
 		return runner -> {
-			createInstructor(appDAO);
+			findInstructor(appDAO);
+
+			// createInstructor(appDAO);
 
 			// createStudent(studentDAO);
 
@@ -38,12 +39,18 @@ public class SpringCoolAppApplication {
 		};
 	}
 
-	private void createInstructor(AppDAO appDAO) {
-		Instructor tempInstructor = new Instructor("Chad", "Darby", "darby@luv2code.com");
-		InstructorDetail tempInstructorDetail = new InstructorDetail("http://www.luv2code.com/youtube", "Luv 2 code!!!");
-		tempInstructor.setInstructorDetail(tempInstructorDetail);
-		appDAO.save(tempInstructor);
+	private void findInstructor(AppDAO appDAO) {
+		Instructor tempInstructor = appDAO.findInstructorById(2);
+		System.out.println("Temp instructor: " + tempInstructor);
+		System.out.println("The associated instructor detail: " + tempInstructor.getInstructorDetail());
 	}
+
+	// private void createInstructor(AppDAO appDAO) {
+	// 	Instructor tempInstructor = new Instructor("Chad", "Darby", "darby@luv2code.com");
+	// 	InstructorDetail tempInstructorDetail = new InstructorDetail("http://www.luv2code.com/youtube", "Luv 2 code!!!");
+	// 	tempInstructor.setInstructorDetail(tempInstructorDetail);
+	// 	appDAO.save(tempInstructor);
+	// }
 
 	// private void createStudent(StudentDAO studentDAO) {
 	// System.out.println("Creating student object...");
