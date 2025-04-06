@@ -17,7 +17,9 @@ public class SpringCoolAppApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(AppDAO appDAO) {
 		return runner -> {
-			findInstructorDetail(appDAO);
+			deleteInstructorDetail(appDAO);
+
+			// findInstructorDetail(appDAO);
 
 			// deleteInstructor(appDAO);
 
@@ -43,12 +45,19 @@ public class SpringCoolAppApplication {
 		};
 	}
 
-	private void findInstructorDetail(AppDAO appDAO) {
-		int theId = 1;
-		InstructorDetail tempInstructorDetail = appDAO.findInstructorDetailById(theId);
-		System.out.println("Temp instructor detail: " + tempInstructorDetail);
-		System.out.println("The associated instructor: " + tempInstructorDetail.getInstructor());
+	private void deleteInstructorDetail(AppDAO appDAO) {
+		int theId = 3;
+		System.out.println("Deleting instructor detail id: " + theId);
+		appDAO.deleteInstructorDetailById(theId);
+		System.out.println("Deleted instructor detail. Success!");
 	}
+
+	// private void findInstructorDetail(AppDAO appDAO) {
+	// 	int theId = 1;
+	// 	InstructorDetail tempInstructorDetail = appDAO.findInstructorDetailById(theId);
+	// 	System.out.println("Temp instructor detail: " + tempInstructorDetail);
+	// 	System.out.println("The associated instructor: " + tempInstructorDetail.getInstructor());
+	// }
 
 	// private void deleteInstructor(AppDAO appDAO) {
 	// 	int theId = 2;
