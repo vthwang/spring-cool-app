@@ -7,11 +7,21 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import jakarta.validation.Valid;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 
 import com.vthwang.springboot.spring_cool_app.model.Customer;
 
 @Controller
 public class CustomerController {
+
+    @InitBinder
+    public void initBinder(WebDataBinder dataBinder) {
+        StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+        dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+    }
+
     @GetMapping("/showCustomerForm")
     public String showCustomerForm(Model theModel) {
         theModel.addAttribute("customer", new Customer());
