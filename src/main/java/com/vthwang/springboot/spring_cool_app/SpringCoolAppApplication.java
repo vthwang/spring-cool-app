@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.boot.CommandLineRunner;
 import com.vthwang.springboot.spring_cool_app.dao.AppDAO;
-import com.vthwang.springboot.spring_cool_app.entity.Instructor;
+import com.vthwang.springboot.spring_cool_app.entity.InstructorDetail;
 
 @SpringBootApplication
 public class SpringCoolAppApplication {
@@ -17,8 +17,9 @@ public class SpringCoolAppApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(AppDAO appDAO) {
 		return runner -> {
+			findInstructorDetail(appDAO);
 
-			deleteInstructor(appDAO);
+			// deleteInstructor(appDAO);
 
 			// findInstructor(appDAO);
 
@@ -42,12 +43,19 @@ public class SpringCoolAppApplication {
 		};
 	}
 
-	private void deleteInstructor(AppDAO appDAO) {
-		int theId = 2;
-		System.out.println("Deleting instructor id: " + theId);
-		appDAO.deleteInstructorById(theId);
-		System.out.println("Deleted instructor. Success!");
+	private void findInstructorDetail(AppDAO appDAO) {
+		int theId = 1;
+		InstructorDetail tempInstructorDetail = appDAO.findInstructorDetailById(theId);
+		System.out.println("Temp instructor detail: " + tempInstructorDetail);
+		System.out.println("The associated instructor: " + tempInstructorDetail.getInstructor());
 	}
+
+	// private void deleteInstructor(AppDAO appDAO) {
+	// 	int theId = 2;
+	// 	System.out.println("Deleting instructor id: " + theId);
+	// 	appDAO.deleteInstructorById(theId);
+	// 	System.out.println("Deleted instructor. Success!");
+	// }
 
 	// private void findInstructor(AppDAO appDAO) {
 	// 	Instructor tempInstructor = appDAO.findInstructorById(2);
