@@ -19,7 +19,9 @@ public class SpringCoolAppApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(AppDAO appDAO) {
 		return runner -> {
-			findCoursesForInstructor(appDAO);
+			findInstructorByIdJoinFetch(appDAO);
+
+			// findCoursesForInstructor(appDAO);
 
 			// fetchInstructorWithCourses(appDAO);
 
@@ -53,16 +55,24 @@ public class SpringCoolAppApplication {
 		};
 	}
 
-	private void findCoursesForInstructor(AppDAO appDAO) {
+	private void findInstructorByIdJoinFetch(AppDAO appDAO) {
 		int theId = 2;
 		System.out.println("Fetching instructor with id: " + theId);
-		Instructor tempInstructor = appDAO.findInstructorById(theId);
+		Instructor tempInstructor = appDAO.findInstructorByIdJoinFetch(theId);
 		System.out.println("Instructor: " + tempInstructor);
-		List<Course> courses = appDAO.findCoursesByInstructorId(theId);
-		tempInstructor.setCourses(courses);
-
 		System.out.println("Courses: " + tempInstructor.getCourses());
 	}
+
+	// private void findCoursesForInstructor(AppDAO appDAO) {
+	// 	int theId = 2;
+	// 	System.out.println("Fetching instructor with id: " + theId);
+	// 	Instructor tempInstructor = appDAO.findInstructorById(theId);
+	// 	System.out.println("Instructor: " + tempInstructor);
+	// 	List<Course> courses = appDAO.findCoursesByInstructorId(theId);
+	// 	tempInstructor.setCourses(courses);
+
+	// 	System.out.println("Courses: " + tempInstructor.getCourses());
+	// }
 
 	// private void fetchInstructorWithCourses(AppDAO appDAO) {
 	// 	int theId = 1;
