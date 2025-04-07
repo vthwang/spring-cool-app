@@ -1,5 +1,8 @@
 package com.vthwang.springboot.spring_cool_app.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
@@ -9,6 +12,8 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+
 @Entity
 @Table(name = "instructor")
 public class Instructor {
@@ -29,6 +34,10 @@ public class Instructor {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "instructor_detail_id")
     private InstructorDetail instructorDetail;
+
+    @OneToMany(mappedBy = "instructor", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+            CascadeType.REFRESH })
+    private List<Course> courses;
 
     public Instructor() {
     }
@@ -79,8 +88,25 @@ public class Instructor {
         this.instructorDetail = instructorDetail;
     }
 
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
+    public void add(Course tempCourse) {
+        if (courses == null) {
+            courses = new ArrayList<>();
+        }
+        courses.add(tempCourse);
+        tempCourse.setInstructor(this);
+    }
+
     @Override
     public String toString() {
-        return "Instructor{id=" + id + ", firstName=" + firstName + '\'' + ", lastName=" + lastName + '\'' + ", email=" + email + '\'' + ", instructorDetail=" + instructorDetail + '\'' + "}";
+        return "Instructor{id=" + id + ", firstName=" + firstName + '\'' + ", lastName=" + lastName + '\'' + ", email="
+                + email + '\'' + ", instructorDetail=" + instructorDetail + '\'' + "}";
     }
 }

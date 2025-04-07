@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.boot.CommandLineRunner;
 import com.vthwang.springboot.spring_cool_app.dao.AppDAO;
 import com.vthwang.springboot.spring_cool_app.entity.InstructorDetail;
+import com.vthwang.springboot.spring_cool_app.entity.Instructor;
+import com.vthwang.springboot.spring_cool_app.entity.Course;
 
 @SpringBootApplication
 public class SpringCoolAppApplication {
@@ -17,7 +19,9 @@ public class SpringCoolAppApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(AppDAO appDAO) {
 		return runner -> {
-			deleteInstructorDetail(appDAO);
+			createInstructorWithCourses(appDAO);
+
+			// deleteInstructorDetail(appDAO);
 
 			// findInstructorDetail(appDAO);
 
@@ -45,12 +49,29 @@ public class SpringCoolAppApplication {
 		};
 	}
 
-	private void deleteInstructorDetail(AppDAO appDAO) {
-		int theId = 3;
-		System.out.println("Deleting instructor detail id: " + theId);
-		appDAO.deleteInstructorDetailById(theId);
-		System.out.println("Deleted instructor detail. Success!");
+	private void createInstructorWithCourses(AppDAO appDAO) {
+		Instructor tempInstructor = new Instructor("John", "Doe", "john.doe@gmail.com");
+		InstructorDetail tempInstructorDetail = new InstructorDetail("http://www.luv2code.com/youtube", "Luv 2 code!!!");
+		tempInstructor.setInstructorDetail(tempInstructorDetail);
+
+		Course tempCourse1 = new Course("Air Guitar - The Ultimate Guide");
+		Course tempCourse2 = new Course("The Pinball Masterclass");
+
+		tempInstructor.add(tempCourse1);
+		tempInstructor.add(tempCourse2);
+
+		System.out.println("Saving the instructor: " + tempInstructor);
+		System.out.println("Saved courses: " + tempInstructor.getCourses());
+
+		appDAO.save(tempInstructor);
 	}
+
+	// private void deleteInstructorDetail(AppDAO appDAO) {
+	// 	int theId = 3;
+	// 	System.out.println("Deleting instructor detail id: " + theId);
+	// 	appDAO.deleteInstructorDetailById(theId);
+	// 	System.out.println("Deleted instructor detail. Success!");
+	// }
 
 	// private void findInstructorDetail(AppDAO appDAO) {
 	// 	int theId = 1;
