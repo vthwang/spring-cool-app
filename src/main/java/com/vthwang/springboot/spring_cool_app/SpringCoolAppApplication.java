@@ -19,7 +19,9 @@ public class SpringCoolAppApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(AppDAO appDAO) {
 		return runner -> {
-			createInstructorWithCourses(appDAO);
+			fetchInstructorWithCourses(appDAO);
+
+			// createInstructorWithCourses(appDAO);
 
 			// deleteInstructorDetail(appDAO);
 
@@ -49,22 +51,30 @@ public class SpringCoolAppApplication {
 		};
 	}
 
-	private void createInstructorWithCourses(AppDAO appDAO) {
-		Instructor tempInstructor = new Instructor("John", "Doe", "john.doe@gmail.com");
-		InstructorDetail tempInstructorDetail = new InstructorDetail("http://www.luv2code.com/youtube", "Luv 2 code!!!");
-		tempInstructor.setInstructorDetail(tempInstructorDetail);
-
-		Course tempCourse1 = new Course("Air Guitar - The Ultimate Guide");
-		Course tempCourse2 = new Course("The Pinball Masterclass");
-
-		tempInstructor.add(tempCourse1);
-		tempInstructor.add(tempCourse2);
-
-		System.out.println("Saving the instructor: " + tempInstructor);
-		System.out.println("Saved courses: " + tempInstructor.getCourses());
-
-		appDAO.save(tempInstructor);
+	private void fetchInstructorWithCourses(AppDAO appDAO) {
+		int theId = 1;
+		System.out.println("Fetching instructor with id: " + theId);
+		Instructor tempInstructor = appDAO.findInstructorById(theId);
+		System.out.println("Instructor: " + tempInstructor);
+		System.out.println("Courses: " + tempInstructor.getCourses());
 	}
+
+	// private void createInstructorWithCourses(AppDAO appDAO) {
+	// 	Instructor tempInstructor = new Instructor("John", "Doe", "john.doe@gmail.com");
+	// 	InstructorDetail tempInstructorDetail = new InstructorDetail("http://www.luv2code.com/youtube", "Luv 2 code!!!");
+	// 	tempInstructor.setInstructorDetail(tempInstructorDetail);
+
+	// 	Course tempCourse1 = new Course("Air Guitar - The Ultimate Guide");
+	// 	Course tempCourse2 = new Course("The Pinball Masterclass");
+
+	// 	tempInstructor.add(tempCourse1);
+	// 	tempInstructor.add(tempCourse2);
+
+	// 	System.out.println("Saving the instructor: " + tempInstructor);
+	// 	System.out.println("Saved courses: " + tempInstructor.getCourses());
+
+	// 	appDAO.save(tempInstructor);
+	// }
 
 	// private void deleteInstructorDetail(AppDAO appDAO) {
 	// 	int theId = 3;
