@@ -4,8 +4,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import com.vthwang.springboot.spring_cool_app.entity.Instructor;
 import com.vthwang.springboot.spring_cool_app.entity.InstructorDetail;
+import com.vthwang.springboot.spring_cool_app.entity.Course;
+import java.util.List;
 
 @Repository
 public class AppDAOImpl implements AppDAO {
@@ -45,5 +48,13 @@ public class AppDAOImpl implements AppDAO {
         InstructorDetail tempInstructorDetail = entityManager.find(InstructorDetail.class, theId);
         tempInstructorDetail.getInstructor().setInstructorDetail(null);
         entityManager.remove(tempInstructorDetail);
+    }
+
+    @Override
+    public List<Course> findCoursesByInstructorId(int theId) {
+        TypedQuery<Course> query = entityManager.createQuery("from Course where instructor.id = :data", Course.class);
+        query.setParameter("data", theId);
+        List<Course> courses = query.getResultList();
+        return courses;
     }
 }

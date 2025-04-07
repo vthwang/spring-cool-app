@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.boot.CommandLineRunner;
 import com.vthwang.springboot.spring_cool_app.dao.AppDAO;
-import com.vthwang.springboot.spring_cool_app.entity.InstructorDetail;
 import com.vthwang.springboot.spring_cool_app.entity.Instructor;
 import com.vthwang.springboot.spring_cool_app.entity.Course;
+import java.util.List;
 
 @SpringBootApplication
 public class SpringCoolAppApplication {
@@ -19,7 +19,9 @@ public class SpringCoolAppApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(AppDAO appDAO) {
 		return runner -> {
-			fetchInstructorWithCourses(appDAO);
+			findCoursesForInstructor(appDAO);
+
+			// fetchInstructorWithCourses(appDAO);
 
 			// createInstructorWithCourses(appDAO);
 
@@ -51,13 +53,24 @@ public class SpringCoolAppApplication {
 		};
 	}
 
-	private void fetchInstructorWithCourses(AppDAO appDAO) {
-		int theId = 1;
+	private void findCoursesForInstructor(AppDAO appDAO) {
+		int theId = 2;
 		System.out.println("Fetching instructor with id: " + theId);
 		Instructor tempInstructor = appDAO.findInstructorById(theId);
 		System.out.println("Instructor: " + tempInstructor);
+		List<Course> courses = appDAO.findCoursesByInstructorId(theId);
+		tempInstructor.setCourses(courses);
+
 		System.out.println("Courses: " + tempInstructor.getCourses());
 	}
+
+	// private void fetchInstructorWithCourses(AppDAO appDAO) {
+	// 	int theId = 1;
+	// 	System.out.println("Fetching instructor with id: " + theId);
+	// 	Instructor tempInstructor = appDAO.findInstructorById(theId);
+	// 	System.out.println("Instructor: " + tempInstructor);
+	// 	System.out.println("Courses: " + tempInstructor.getCourses());
+	// }
 
 	// private void createInstructorWithCourses(AppDAO appDAO) {
 	// 	Instructor tempInstructor = new Instructor("John", "Doe", "john.doe@gmail.com");
